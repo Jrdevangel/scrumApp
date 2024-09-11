@@ -7,17 +7,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project")
-
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    public Project(int id, String name) {
+    public Project() {
         this.id = id;
         this.name = name;
     }
