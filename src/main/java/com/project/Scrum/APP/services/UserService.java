@@ -1,9 +1,9 @@
 package com.project.Scrum.APP.services;
 
-import com.project.Scrum.APP.models.User;
-import com.project.Scrum.APP.repositories.IUserRepository;
 import org.springframework.stereotype.Service;
 
+import com.project.Scrum.APP.models.User;
+import com.project.Scrum.APP.repositories.IUserRepository;
 @Service
 public class UserService {
 

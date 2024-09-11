@@ -1,9 +1,9 @@
 package com.project.Scrum.APP.services;
 
-import com.project.Scrum.APP.models.Task;
-import com.project.Scrum.APP.repositories.ITaskRepository;
 import org.springframework.stereotype.Service;
 
+import com.project.Scrum.APP.models.Task;
+import com.project.Scrum.APP.repositories.ITaskRepository;
 @Service
 public class TaskService {
 

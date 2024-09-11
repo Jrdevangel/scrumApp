@@ -1,9 +1,9 @@
 package com.project.Scrum.APP.services;
 
-import com.project.Scrum.APP.models.Project;
-import com.project.Scrum.APP.repositories.IProjectRepository;
 import org.springframework.stereotype.Service;
 
+import com.project.Scrum.APP.models.Project;
+import com.project.Scrum.APP.repositories.IProjectRepository;
 @Service
 public class ProjectService {
 

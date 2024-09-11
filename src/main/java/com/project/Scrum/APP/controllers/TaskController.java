@@ -3,7 +3,6 @@ package com.project.Scrum.APP.controllers;
 import com.project.Scrum.APP.models.Task;
 import com.project.Scrum.APP.services.TaskService;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/api/tasks")
 @CrossOrigin(origins = "*")
