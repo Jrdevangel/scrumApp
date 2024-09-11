@@ -1,8 +1,10 @@
 package com.project.Scrum.APP.services;
 
+
+import org.springframework.stereotype.Service;
+
 import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.repositories.IUserRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -14,7 +16,8 @@ public class UserService {
         this.iUserRepository = iUserRepository;
     }
 
-    public User createUser(User newUser) {
-        return iUserRepository.save(newUser);
+    public User updateUser(User user, Integer id){
+        user.setId(id);
+        return iUserRepository.save(user);
     }
 }

@@ -14,8 +14,8 @@ public class ProjectService {
         this.iProjectRepository = iProjectRepository;
     }
 
-    public Project createProject(Project newProject) {
-        return iProjectRepository.save(newProject);
+    public Project updateProject(Project project, Integer id){
+        project.setId(id);
+        return iProjectRepository.save(project);
     }
-
 }
