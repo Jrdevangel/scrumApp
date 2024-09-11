@@ -1,9 +1,12 @@
 package com.project.Scrum.APP.controllers;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Scrum.APP.models.Project;
 import com.project.Scrum.APP.services.ProjectService;
-import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/api/projects")
 @CrossOrigin(origins = "*")
@@ -19,5 +22,4 @@ public class ProjectController {
     public Project createProject(@RequestBody Project project){
         return projectService.createProject(project);
     }
-
 }
