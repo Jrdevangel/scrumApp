@@ -16,7 +16,9 @@ public class TaskService {
     }
 
 
-
+    public Task createTask(Task newTask) {
+        return iTaskRepository.save(newTask);
+    }
 
 
 

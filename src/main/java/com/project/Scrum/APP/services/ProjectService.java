@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.Scrum.APP.models.Project;
 import com.project.Scrum.APP.repositories.IProjectRepository;
-
 @Service
 public class ProjectService {
 
@@ -15,7 +14,9 @@ public class ProjectService {
         this.iProjectRepository = iProjectRepository;
     }
 
-
+    public Project createProject(Project newProject) {
+        return iProjectRepository.save(newProject);
+    }
 
 
 

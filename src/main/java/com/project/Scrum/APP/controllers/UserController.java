@@ -1,13 +1,14 @@
 package com.project.Scrum.APP.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.services.UserService;
-
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
@@ -19,7 +20,10 @@ public class UserController {
         this.userService = userService;
     }
 
-
+     @PostMapping
+    public User createUser(@RequestBody User user){
+        return userService.createUser(user);
+    }
 
 
     

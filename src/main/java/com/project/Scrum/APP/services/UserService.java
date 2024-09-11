@@ -16,7 +16,9 @@ public class UserService {
         this.iUserRepository = iUserRepository;
     }
 
-
+    public User createUser(User newUser) {
+        return iUserRepository.save(newUser);
+    }
     
 
 
