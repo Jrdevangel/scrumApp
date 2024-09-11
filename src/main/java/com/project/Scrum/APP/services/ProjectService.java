@@ -1,8 +1,9 @@
 package com.project.Scrum.APP.services;
 
+import org.springframework.stereotype.Service;
+
 import com.project.Scrum.APP.models.Project;
 import com.project.Scrum.APP.repositories.IProjectRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectService {
@@ -13,6 +14,16 @@ public class ProjectService {
     public ProjectService(IProjectRepository iProjectRepository) {
         this.iProjectRepository = iProjectRepository;
     }
+
+
+
+
+
+
+
+
+
+
 
     public Project updateProject(Project project, Integer id){
         project.setId(id);
