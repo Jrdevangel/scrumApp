@@ -39,6 +39,7 @@ class UserControllerTest {
         MockitoAnnotations.openMocks(this);
         mockController = MockMvcBuilders.standaloneSetup(userController).build();
 
+
         user = new User();
         user.setId(3);
         user.setUsername("Valen");
@@ -56,7 +57,6 @@ class UserControllerTest {
         userManager.setUsername("Kris");
         userManager.setPassword("1234");
         userManager.setRole(Role.MANAGER);
-
 
         userList.add(userAdmin);
         userList.add(userManager);

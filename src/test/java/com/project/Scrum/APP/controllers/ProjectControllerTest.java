@@ -1,22 +1,24 @@
 package com.project.Scrum.APP.controllers;
 
-import com.project.Scrum.APP.models.Project;
-import com.project.Scrum.APP.services.ProjectService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import java.util.ArrayList;
-import java.util.List;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.project.Scrum.APP.models.Project;
+import com.project.Scrum.APP.services.ProjectService;
 
 class ProjectControllerTest {
 
@@ -37,7 +39,7 @@ class ProjectControllerTest {
         mockController = MockMvcBuilders.standaloneSetup(projectController).build();
 
         project = new Project();
-        project.setId(1);
+        project.setId(1); 
         project.setName("ScrumApp");
 
         projectList.add(project);
