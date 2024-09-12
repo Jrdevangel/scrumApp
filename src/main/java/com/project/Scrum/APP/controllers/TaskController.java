@@ -1,6 +1,12 @@
 package com.project.Scrum.APP.controllers;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +30,37 @@ public class TaskController {
     public Task createTask(@RequestBody Task task){
         return taskService.createTask(task);
     }
-
-
-
-
-
     
     @PutMapping(path = "{id}")
     public Task updateTask(Task task, Integer id){
         return taskService.updateTask(task, id);
+    }
+     @GetMapping
+    public ResponseEntity<List<Task>> getAllTask() {
+        try {
+            List<Task> Task = taskService.getAllTask();
+            if (Task.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+            }
+            return new ResponseEntity<>(Task, HttpStatus.OK);  
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); 
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable("id") int id) {
+        try {
+            if (id <= 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+            }
+            Task task = taskService.getTaskById(id);
+            if (task == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+            }
+            return new ResponseEntity<>(task, HttpStatus.OK); 
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

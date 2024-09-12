@@ -4,17 +4,21 @@ package com.project.Scrum.APP.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -39,13 +43,18 @@ class TaskControllerTest {
         MockitoAnnotations.openMocks(this);
         mockController = MockMvcBuilders.standaloneSetup(taskController).build();
 
-        task = new Task(1, "About Canva", "Task management system", true);
-        //task.setId(1);
-        //task.setName("About Canva");
-        //task.setDescription("Task management system");
-        //task.setStatus(true);
+        task = new Task();
+        task.setId(1);
+        task.setName("Task");
+        task.setDescription("Task management system");
+        task.setStatus(true);
+
+        Task secondTask = new Task();
+        secondTask.setId(2);
+        secondTask.setName("Second Task");
 
         taskList.add(task);
+        taskList.add(secondTask);
     }
 
     @Test
@@ -65,9 +74,51 @@ class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         "{\"id\": 1,\n"
-                        + "\"name\": \"About Canva\",\n"
+                        + "\"name\": \"Task\",\n"
                         + "\"description\": \"Task management system\",\n"
                         + "\"status\": true}"));
+    }
+    @Test
+    void test_GetAllTasks() throws Exception {
+        when(taskService.getAllTask()).thenReturn(taskList);
+
+        mockController
+                .perform(get("/api/tasks"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(content().json(
+                        "[{\"id\": 1, \"name\": \"Task\"}, {\"id\": 2, \"name\": \"Second Task\"}]"));
+    }
+
+    
+    @Test
+    void test_GetTasksById() throws Exception {
+        when(taskService.getTaskById(anyInt())).thenReturn(task);
+
+        mockController
+                .perform(get("/api/tasks/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                        + "\"name\": \"Task\"}"));
+    }
+
+    @Test
+    void test_GetTasksById_NotFound() throws Exception {
+        when(taskService.getTaskById(anyInt())).thenReturn(null);
+
+        mockController 
+                .perform(get("/api/tasks/1"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void test_GetAllTasks_EmptyList() throws Exception {
+        when(taskService.getAllTask()).thenReturn(new ArrayList<>());
+
+        mockController
+                .perform(get("/api/tasks"))
+                .andExpect(status().isNoContent());
     }
 
 }

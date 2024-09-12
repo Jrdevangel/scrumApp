@@ -55,6 +55,6 @@ public class Project {
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Task> task;
+    private Set<Task> tasks;
 
 }
