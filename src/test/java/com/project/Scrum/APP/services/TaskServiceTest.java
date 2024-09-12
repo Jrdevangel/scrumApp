@@ -51,4 +51,18 @@ class TaskServiceTest {
         verify(iTaskRepository, times(1)).save(any(Task.class));
     }
 
+
+    @Test
+    void test_update_task() {
+        when(iTaskRepository.save(any(Task.class))).thenReturn(task);
+
+        Task result = taskService.updateTask(task, 2);
+
+        assertNotNull(result);
+        assertEquals(2, result.getId());
+        assertEquals("Testing with Postman", result.getName());
+        assertEquals("Verification of requests", result.getDescription());
+
+        verify(iTaskRepository, times(1)).save(any(Task.class));
+    }
 }
