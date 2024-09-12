@@ -11,13 +11,13 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
+    @Column(name = "status")
     private boolean status;
 
     public Task(int id, String name, String description, boolean status) {
@@ -25,6 +25,9 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = status;
+    }
+
+    public Task() {
     }
 
     public int getId() {

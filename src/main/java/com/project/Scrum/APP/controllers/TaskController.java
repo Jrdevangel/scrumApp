@@ -2,21 +2,24 @@ package com.project.Scrum.APP.controllers;
 
 import com.project.Scrum.APP.models.Task;
 import com.project.Scrum.APP.services.TaskService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/tasks")
 @CrossOrigin(origins = "*")
 public class TaskController {
-    private TaskService taskService;
 
+    TaskService taskService;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
+
+    @PostMapping
+    public Task createTask(@RequestBody Task task){
+        return taskService.createTask(task);
+    }
+
 
     @PutMapping(path = "{id}")
     public Task updateTask(Task task, Integer id){

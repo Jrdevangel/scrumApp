@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectService {
 
-    private IProjectRepository iProjectRepository;
+    IProjectRepository iProjectRepository;
 
 
     public ProjectService(IProjectRepository iProjectRepository) {
         this.iProjectRepository = iProjectRepository;
     }
+
+    public Project createProject(Project newProject) {
+        return iProjectRepository.save(newProject);
+    }
+
 
     public Project updateProject(Project project, Integer id){
         project.setId(id);

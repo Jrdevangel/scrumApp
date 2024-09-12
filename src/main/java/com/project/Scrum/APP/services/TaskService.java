@@ -3,16 +3,19 @@ package com.project.Scrum.APP.services;
 import com.project.Scrum.APP.models.Task;
 import com.project.Scrum.APP.repositories.ITaskRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Service
 public class TaskService {
 
-    private ITaskRepository iTaskRepository;
+    ITaskRepository iTaskRepository;
 
 
     public TaskService(ITaskRepository iTaskRepository) {
         this.iTaskRepository = iTaskRepository;
+    }
+
+    public Task createTask(Task newTask) {
+        return iTaskRepository.save(newTask);
     }
 
     public Task updateTask(Task task, Integer id){

@@ -7,17 +7,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "project")
-
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    public Project(int id, String name) {
+    public Project() {
         this.id = id;
         this.name = name;
     }
@@ -38,11 +37,11 @@ public class Project {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "task",
+    @OneToMany(mappedBy = "project",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Task> task;
+    private Set<Task> tasks;
 
 }
