@@ -22,7 +22,7 @@ public class ProjectController {
 
 
     @PutMapping(path = "{id}")
-    public Project updateProject(Project project, Integer id){
+    public Project updateProject(@RequestBody Project project, @PathVariable Integer id){
         return projectService.updateProject(project, id);
     }
 }
