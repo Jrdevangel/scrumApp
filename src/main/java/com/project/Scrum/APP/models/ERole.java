@@ -1,6 +1,6 @@
 package com.project.Scrum.APP.models;
 
-public enum Role {
+public enum ERole {
     ADMIN,
     MANAGER,
     USER

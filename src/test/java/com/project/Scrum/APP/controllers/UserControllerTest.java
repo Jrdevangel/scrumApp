@@ -1,6 +1,6 @@
 package com.project.Scrum.APP.controllers;
 
-import com.project.Scrum.APP.models.Role;
+import com.project.Scrum.APP.models.ERole;
 import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,19 +43,19 @@ class UserControllerTest {
         user.setId(3);
         user.setUsername("Valen");
         user.setPassword("1234");
-        user.setRole(Role.USER);
+        user.setRole(ERole.USER);
 
         userAdmin = new User();
         userAdmin.setId(1);
         userAdmin.setUsername("Ana");
         userAdmin.setPassword("1234");
-        userAdmin.setRole(Role.ADMIN);
+        userAdmin.setRole(ERole.ADMIN);
 
         userManager = new User();
         userManager.setId(2);
         userManager.setUsername("Kris");
         userManager.setPassword("1234");
-        userManager.setRole(Role.MANAGER);
+        userManager.setRole(ERole.MANAGER);
 
 
         userList.add(userAdmin);
