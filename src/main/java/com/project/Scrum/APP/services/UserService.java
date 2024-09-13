@@ -17,4 +17,8 @@ public class UserService {
     public User createUser(User newUser) {
         return iUserRepository.save(newUser);
     }
+
+    public void deleteUser(Integer id) {
+        iUserRepository.deleteById(id);
+    }
 }

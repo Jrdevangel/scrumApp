@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -48,4 +50,12 @@ class ProjectServiceTest {
         verify(iProjectRepository, times(1)).save(any(Project.class));
     }
 
+    @Test
+    void deleteProject() {
+        when(iProjectRepository.findById(2)).thenReturn(Optional.of(project));
+
+        projectService.deleteProject(2);
+
+        verify(iProjectRepository, times(1)).deleteById(2);
+    }
 }

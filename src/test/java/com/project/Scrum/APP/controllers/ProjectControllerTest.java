@@ -1,6 +1,7 @@
 package com.project.Scrum.APP.controllers;
 
 import com.project.Scrum.APP.models.Project;
+import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.services.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,5 +63,11 @@ class ProjectControllerTest {
                         + "\"name\": ScrumApp}"));
 
     }
-}
 
+    @Test
+    void deleteProject() throws Exception {
+        doNothing().when(projectService).deleteProject(1);
+
+        mockController.perform(MockMvcRequestBuilders.delete("/api/projects/1")).andExpect(status().isOk());
+    }
+}

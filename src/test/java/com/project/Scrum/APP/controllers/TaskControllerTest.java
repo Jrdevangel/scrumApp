@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,12 @@ class TaskControllerTest {
                         + "\"status\": true}"));
     }
 
+    @Test
+    void deleteTask() throws Exception {
+        doNothing().when(taskService).deleteTask(1);
+
+        mockController.perform(MockMvcRequestBuilders.delete("/api/tasks/1")).andExpect(status().isOk());
+    }
 }
 
 

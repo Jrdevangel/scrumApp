@@ -18,4 +18,7 @@ public class ProjectService {
         return iProjectRepository.save(newProject);
     }
 
+    public void deleteProject(Integer id) {
+        iProjectRepository.deleteById(id);
+    }
 }
