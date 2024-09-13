@@ -1,5 +1,8 @@
 package com.project.Scrum.APP.controllers;
 
+import com.project.Scrum.APP.models.User;
+import com.project.Scrum.APP.services.UserService;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -27,16 +30,15 @@ public class UserController {
         this.userService = userService;
     }
 
-     @PostMapping
+    @PostMapping
     public User createUser(@RequestBody User user){
         return userService.createUser(user);
     }
 
     @PutMapping(path = "{id}")
-    public User updateUser(User user, Integer id){
+    public User updateUser(@RequestBody User user, @PathVariable Integer id){
         return userService.updateUser(user, id);
     }
-
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {

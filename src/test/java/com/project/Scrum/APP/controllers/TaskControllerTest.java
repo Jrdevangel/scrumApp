@@ -1,5 +1,26 @@
 package com.project.Scrum.APP.controllers;
 
+import com.project.Scrum.APP.models.Task;
+import com.project.Scrum.APP.services.TaskService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +42,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.project.Scrum.APP.models.Task;
+import com.project.Scrum.APP.services.TaskService;
+
 
 import com.project.Scrum.APP.models.Task;
 import com.project.Scrum.APP.services.TaskService;
@@ -78,7 +103,31 @@ class TaskControllerTest {
                         + "\"description\": \"Task management system\",\n"
                         + "\"status\": true}"));
     }
+
     @Test
+    void test_update_task() throws Exception {
+        when(taskService.updateTask(any(Task.class), any(Integer.class))).thenReturn(task);
+
+        String updateTaskJson =
+                "{\"id\": 1,\n"
+                        + "\"name\": \"About Canva\",\n"
+                        + "\"description\": \"Task management system\",\n"
+                        + "\"status\": true}";
+
+        mockController
+                .perform(put("/api/tasks/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateTaskJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"name\": \"About Canva\",\n"
+                                + "\"description\": \"Task management system\",\n"
+                                + "\"status\": true}"));
+
+        verify(taskService).updateTask(any(Task.class), any(Integer.class));
+    }
+     @Test
     void test_GetAllTasks() throws Exception {
         when(taskService.getAllTask()).thenReturn(taskList);
 
@@ -120,7 +169,6 @@ class TaskControllerTest {
                 .perform(get("/api/tasks"))
                 .andExpect(status().isNoContent());
     }
-
 }
 
 

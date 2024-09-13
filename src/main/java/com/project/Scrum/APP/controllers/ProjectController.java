@@ -28,12 +28,13 @@ public class ProjectController {
     public Project createProject(@RequestBody Project project){
         return projectService.createProject(project);
     }
-    
+
+
     @PutMapping(path = "{id}")
-    public Project updateProject(Project project, Integer id){
+    public Project updateProject(@RequestBody Project project, @PathVariable Integer id){
         return projectService.updateProject(project, id);
     }
-    
+
     @GetMapping
     public ResponseEntity<List<Project>> getAllProjects() {
         try {
@@ -63,6 +64,8 @@ public class ProjectController {
         }
     }
 }
+
+
 
 
 

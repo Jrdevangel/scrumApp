@@ -21,11 +21,11 @@ public class ProjectService {
         return iProjectRepository.save(newProject);
     }
 
+
     public Project updateProject(Project project, Integer id){
         project.setId(id);
         return iProjectRepository.save(project);
     }
-
     public List<Project> getAllProjects() {
         return iProjectRepository.findAll();
     }

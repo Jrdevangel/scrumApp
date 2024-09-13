@@ -10,12 +10,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,7 +69,27 @@ class ProjectControllerTest {
                         + "\"name\": ScrumApp}"));
 
     }
+
     @Test
+    void test_update_project() throws Exception {
+        when(projectService.updateProject(any(Project.class), any(Integer.class))).thenReturn(project);
+
+        String updateProjectJson =
+                "{\"id\": 1,\n"
+                        + "\"name\": \"ScrumApp\"}";
+
+        mockController
+                .perform(put("/api/projects/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateProjectJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"name\": ScrumApp}"));
+
+        verify(projectService).updateProject(any(Project.class), any(Integer.class));
+    }
+        @Test
     void test_GetAllProjects() throws Exception {
     
         Project secondProject = new Project(2, "SecondProject");
@@ -116,25 +138,5 @@ class ProjectControllerTest {
                 .perform(get("/api/projects"))
                 .andExpect(status().isNoContent());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 

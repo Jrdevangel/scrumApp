@@ -30,11 +30,13 @@ public class TaskController {
     public Task createTask(@RequestBody Task task){
         return taskService.createTask(task);
     }
-    
+
+
     @PutMapping(path = "{id}")
-    public Task updateTask(Task task, Integer id){
+    public Task updateTask(@RequestBody Task task, @PathVariable Integer id){
         return taskService.updateTask(task, id);
     }
+
      @GetMapping
     public ResponseEntity<List<Task>> getAllTask() {
         try {

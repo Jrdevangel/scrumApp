@@ -13,6 +13,30 @@ import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import java.util.ArrayList;
+import java.util.List;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.project.Scrum.APP.models.Role;
+import com.project.Scrum.APP.models.User;
+import com.project.Scrum.APP.services.UserService;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -23,6 +47,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.project.Scrum.APP.models.Role;
 import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.services.UserService;
+
 
 
 class UserControllerTest {
@@ -136,19 +161,88 @@ class UserControllerTest {
                         + "\"role\": \"USER\"}"));
     }
 
+    @Test
+    void test_update_admin() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(userAdmin);
+
+        String updateAdminJson =
+                "{\"id\": 1,\n"
+                        + "\"username\": \"Ana\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"ADMIN\"}";
+
+        mockController
+                .perform(put("/api/users/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateAdminJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"username\": \"Ana\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"ADMIN\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
+    }
 
     @Test
-void test_GetAllUsers() throws Exception {
-    when(userService.getAllUsers()).thenReturn(userList);
+    void test_update_manager() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(userManager);
 
-    mockController
-            .perform(get("/api/users"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(3)))
-            .andExpect(content().json(
-                    "[{\"id\": 1, \"username\": \"Ana\", \"password\": \"1234\", \"role\": \"ADMIN\"}, " +
-                    "{\"id\": 2, \"username\": \"Kris\", \"password\": \"1234\", \"role\": \"MANAGER\"}, " +
-                    "{\"id\": 3, \"username\": \"Valen\", \"password\": \"1234\", \"role\": \"USER\"}]"));
-}
+        String updateManagerJson =
+                "{\"id\": 2,\n"
+                        + "\"username\": \"Kris\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"MANAGER\"}";
 
+        mockController
+                .perform(put("/api/users/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateManagerJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 2,\n"
+                                + "\"username\": \"Kris\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"MANAGER\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
+    }
+
+    @Test
+    void test_update_user() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(user);
+
+        String updateUserJson =
+                "{\"id\": 3,\n"
+                        + "\"username\": \"Valen\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"USER\"}";
+
+        mockController
+                .perform(put("/api/users/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateUserJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 3,\n"
+                                + "\"username\": \"Valen\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"USER\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
+    }
+    @Test
+    void test_GetAllUsers() throws Exception {
+        when(userService.getAllUsers()).thenReturn(userList);
+    
+        mockController
+                .perform(get("/api/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(content().json(
+                        "[{\"id\": 1, \"username\": \"Ana\", \"password\": \"1234\", \"role\": \"ADMIN\"}, " +
+                        "{\"id\": 2, \"username\": \"Kris\", \"password\": \"1234\", \"role\": \"MANAGER\"}, " +
+                        "{\"id\": 3, \"username\": \"Valen\", \"password\": \"1234\", \"role\": \"USER\"}]"));
+    }
 }

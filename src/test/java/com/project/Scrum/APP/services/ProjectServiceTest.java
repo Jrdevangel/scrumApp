@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -48,4 +49,16 @@ class ProjectServiceTest {
         verify(iProjectRepository, times(1)).save(any(Project.class));
     }
 
+    @Test
+    void test_update_project() {
+        when(iProjectRepository.save(any(Project.class))).thenReturn(project);
+
+        Project result = projectService.updateProject(project, 2);
+
+        assertNotNull(result);
+        assertEquals(2, result.getId());
+        assertEquals("ScrumApp", result.getName());
+
+        verify(iProjectRepository, times(1)).save(any(Project.class));
+    }
 }

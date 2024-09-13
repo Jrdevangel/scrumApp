@@ -18,7 +18,6 @@ public class TaskService {
         this.iTaskRepository = iTaskRepository;
     }
 
-
     public Task createTask(Task newTask) {
         return iTaskRepository.save(newTask);
     }
