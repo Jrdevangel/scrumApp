@@ -21,4 +21,9 @@ public class TaskService {
     public void deleteTask(Integer id) {
         iTaskRepository.deleteById(id);
     }
+
+    public Task updateTask(Task task, Integer id){
+        task.setId(id);
+        return iTaskRepository.save(task);
+    }
 }

@@ -58,4 +58,16 @@ class ProjectServiceTest {
 
         verify(iProjectRepository, times(1)).deleteById(2);
     }
+    @Test
+    void test_update_project() {
+        when(iProjectRepository.save(any(Project.class))).thenReturn(project);
+
+        Project result = projectService.updateProject(project, 2);
+
+        assertNotNull(result);
+        assertEquals(2, result.getId());
+        assertEquals("ScrumApp", result.getName());
+
+        verify(iProjectRepository, times(1)).save(any(Project.class));
+    }
 }

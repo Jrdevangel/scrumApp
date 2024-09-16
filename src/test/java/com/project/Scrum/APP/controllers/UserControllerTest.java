@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -137,5 +138,76 @@ class UserControllerTest {
         doNothing().when(userService).deleteUser(1);
 
         mockController.perform(MockMvcRequestBuilders.delete("/api/users/1")).andExpect(status().isOk());
+    }
+    @Test
+    void test_update_admin() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(userAdmin);
+
+        String updateAdminJson =
+                "{\"id\": 1,\n"
+                        + "\"username\": \"Ana\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"ADMIN\"}";
+
+        mockController
+                .perform(put("/api/users/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateAdminJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"username\": \"Ana\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"ADMIN\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
+    }
+
+    @Test
+    void test_update_manager() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(userManager);
+
+        String updateManagerJson =
+                "{\"id\": 2,\n"
+                        + "\"username\": \"Kris\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"MANAGER\"}";
+
+        mockController
+                .perform(put("/api/users/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateManagerJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 2,\n"
+                                + "\"username\": \"Kris\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"MANAGER\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
+    }
+
+    @Test
+    void test_update_user() throws Exception {
+        when(userService.updateUser(any(User.class), any(Integer.class))).thenReturn(user);
+
+        String updateUserJson =
+                "{\"id\": 3,\n"
+                        + "\"username\": \"Valen\",\n"
+                        + "\"password\": \"1234\",\n"
+                        + "\"role\": \"USER\"}";
+
+        mockController
+                .perform(put("/api/users/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateUserJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 3,\n"
+                                + "\"username\": \"Valen\",\n"
+                                + "\"password\": \"1234\",\n"
+                                + "\"role\": \"USER\"}"));
+
+        verify(userService).updateUser(any(User.class), any(Integer.class));
     }
 }

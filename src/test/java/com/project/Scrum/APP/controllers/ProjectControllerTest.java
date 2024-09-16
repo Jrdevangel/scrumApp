@@ -1,7 +1,6 @@
 package com.project.Scrum.APP.controllers;
 
 import com.project.Scrum.APP.models.Project;
-import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.services.ProjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +60,26 @@ class ProjectControllerTest {
                         "{\"id\": 1,\n"
                         + "\"name\": ScrumApp}"));
 
+    }
+
+    @Test
+    void test_update_project() throws Exception {
+        when(projectService.updateProject(any(Project.class), any(Integer.class))).thenReturn(project);
+
+        String updateProjectJson =
+                "{\"id\": 1,\n"
+                        + "\"name\": \"ScrumApp\"}";
+
+        mockController
+                .perform(put("/api/projects/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateProjectJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"name\": ScrumApp}"));
+
+        verify(projectService).updateProject(any(Project.class), any(Integer.class));
     }
 
     @Test

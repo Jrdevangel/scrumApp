@@ -59,4 +59,18 @@ class UserServiceTest {
 
         verify(iUserRepository, times(1)).deleteById(2);
     }
+    @Test
+    void test_update_user() {
+        when(iUserRepository.save(any(User.class))).thenReturn(user);
+
+        User result = userService.updateUser(user, 2);
+
+        assertNotNull(result);
+        assertEquals(2, result.getId());
+        assertEquals("Ana", result.getUsername());
+        assertEquals("1234", result.getPassword());
+        assertEquals(Role.ADMIN, result.getRole());
+
+        verify(iUserRepository, times(1)).save(any(User.class));
+    }
 }

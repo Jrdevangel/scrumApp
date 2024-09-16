@@ -37,11 +37,11 @@ public class Project {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "task",
+    @OneToMany(mappedBy = "project",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Task> task;
+    private Set<Task> tasks;
 
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -74,6 +75,29 @@ class TaskControllerTest {
         doNothing().when(taskService).deleteTask(1);
 
         mockController.perform(MockMvcRequestBuilders.delete("/api/tasks/1")).andExpect(status().isOk());
+    }
+    @Test
+    void test_update_task() throws Exception {
+        when(taskService.updateTask(any(Task.class), any(Integer.class))).thenReturn(task);
+
+        String updateTaskJson =
+                "{\"id\": 1,\n"
+                        + "\"name\": \"About Canva\",\n"
+                        + "\"description\": \"Task management system\",\n"
+                        + "\"status\": true}";
+
+        mockController
+                .perform(put("/api/tasks/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateTaskJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        "{\"id\": 1,\n"
+                                + "\"name\": \"About Canva\",\n"
+                                + "\"description\": \"Task management system\",\n"
+                                + "\"status\": true}"));
+
+        verify(taskService).updateTask(any(Task.class), any(Integer.class));
     }
 }
 
