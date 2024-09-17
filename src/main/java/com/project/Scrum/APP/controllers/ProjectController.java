@@ -29,10 +29,14 @@ public class ProjectController {
         return projectService.createProject(project);
     }
 
-
     @PutMapping(path = "{id}")
     public Project updateProject(@RequestBody Project project, @PathVariable Integer id){
         return projectService.updateProject(project, id);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteProject(@PathVariable Integer id) {
+        projectService.deleteProject(id);
     }
 
     @GetMapping

@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -48,6 +51,14 @@ class UserServiceTest {
         verify(iUserRepository, times(1)).save(any(User.class));
     }
 
+    @Test
+    void deleteUser() {
+        when(iUserRepository.findById(2)).thenReturn(Optional.of(user));
+
+        userService.deleteUser(2);
+
+        verify(iUserRepository, times(1)).deleteById(2);
+    }
     @Test
     void test_update_user() {
         when(iUserRepository.save(any(User.class))).thenReturn(user);

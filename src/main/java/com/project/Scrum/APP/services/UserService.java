@@ -22,6 +22,10 @@ public class UserService {
         return iUserRepository.save(newUser);
     }
 
+    public void deleteUser(Integer id) {
+        iUserRepository.deleteById(id);
+    }
+
     public User updateUser(User user, Integer id){
         user.setId(id);
         return iUserRepository.save(user);

@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -138,5 +137,11 @@ class ProjectControllerTest {
                 .perform(get("/api/projects"))
                 .andExpect(status().isNoContent());
     }
-}
 
+    @Test
+    void deleteProject() throws Exception {
+        doNothing().when(projectService).deleteProject(1);
+
+        mockController.perform(MockMvcRequestBuilders.delete("/api/projects/1")).andExpect(status().isOk());
+    }
+}

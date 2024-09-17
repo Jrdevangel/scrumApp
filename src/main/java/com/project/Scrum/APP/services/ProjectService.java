@@ -34,4 +34,8 @@ public class ProjectService {
         Optional<Project> project = iProjectRepository.findById(id);
         return project.orElse(null);  
     }
+
+    public void deleteProject(Integer id) {
+        iProjectRepository.deleteById(id);
+    }
 }

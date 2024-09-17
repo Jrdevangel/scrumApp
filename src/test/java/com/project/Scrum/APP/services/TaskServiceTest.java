@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -51,6 +53,14 @@ class TaskServiceTest {
         verify(iTaskRepository, times(1)).save(any(Task.class));
     }
 
+    @Test
+    void deleteTask() {
+        when(iTaskRepository.findById(2)).thenReturn(Optional.of(task));
+
+        taskService.deleteTask(2);
+
+        verify(iTaskRepository, times(1)).deleteById(2);
+    }
 
     @Test
     void test_update_task() {
