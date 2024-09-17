@@ -35,7 +35,6 @@ public class WebConfigSecurity {
                                 .requestMatchers("/api/test/all").permitAll()
                                 .requestMatchers("/api/test/user").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/api/test").hasAuthority("ADMIN")
-                                .requestMatchers("/api/tasks").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers(HttpMethod.POST,"/api/tasks").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.DELETE,"/api/tasks/**").hasAuthority("MANAGER")
                                 .requestMatchers(HttpMethod.GET,"/api/tasks/{id}").hasAuthority("USER")
