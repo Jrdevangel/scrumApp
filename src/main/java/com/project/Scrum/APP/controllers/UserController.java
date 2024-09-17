@@ -1,8 +1,5 @@
 package com.project.Scrum.APP.controllers;
 
-import com.project.Scrum.APP.models.User;
-import com.project.Scrum.APP.services.UserService;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;

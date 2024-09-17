@@ -1,11 +1,12 @@
 package com.project.Scrum.APP.services;
 
-import com.project.Scrum.APP.models.User;
-import com.project.Scrum.APP.repositories.IUserRepository;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.project.Scrum.APP.models.User;
+import com.project.Scrum.APP.repositories.IUserRepository;
 
 @Service
 public class UserService {
@@ -25,13 +26,13 @@ public class UserService {
         user.setId(id);
         return iUserRepository.save(user);
     }
-    }
+    
 
     public List<User> getAllUsers(){
         return iUserRepository.findAll();
 
+    
     }
-
     public User getUserById(int id) {
         Optional<User> user = iUserRepository.findById(id);
         return user.orElse(null);
