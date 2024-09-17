@@ -1,6 +1,6 @@
 package com.project.Scrum.APP.services;
 
-import com.project.Scrum.APP.models.Role;
+import com.project.Scrum.APP.models.ERole;
 import com.project.Scrum.APP.models.User;
 import com.project.Scrum.APP.repositories.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ class UserServiceTest {
         user.setId(1);
         user.setUsername("Ana");
         user.setPassword("1234");
-        user.setRole(Role.ADMIN);
+        user.setRole(ERole.ADMIN);
     }
 
     @Test
@@ -45,7 +45,7 @@ class UserServiceTest {
         assertNotNull(user1);
         assertEquals("Ana", user1.getUsername());
         assertEquals("1234", user1.getPassword());
-        assertEquals(Role.ADMIN, user1.getRole());
+        assertEquals(ERole.ADMIN, user1.getRole());
 
 
         verify(iUserRepository, times(1)).save(any(User.class));
@@ -69,7 +69,7 @@ class UserServiceTest {
         assertEquals(2, result.getId());
         assertEquals("Ana", result.getUsername());
         assertEquals("1234", result.getPassword());
-        assertEquals(Role.ADMIN, result.getRole());
+        assertEquals(ERole.ADMIN, result.getRole());
 
         verify(iUserRepository, times(1)).save(any(User.class));
     }
