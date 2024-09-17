@@ -2,17 +2,10 @@ package com.project.Scrum.APP.models;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "project")
@@ -57,4 +50,7 @@ public class Project {
     @JsonManagedReference
     private Set<Task> tasks;
 
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Set<User> users;
 }
