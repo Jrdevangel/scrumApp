@@ -7,6 +7,9 @@ public class RegisterRequest {
     private String password;
     private ERole role;
 
+    public RegisterRequest() {
+    }
+
     private RegisterRequest(Builder builder) {
         this.username = builder.username;
         this.email = builder.email;

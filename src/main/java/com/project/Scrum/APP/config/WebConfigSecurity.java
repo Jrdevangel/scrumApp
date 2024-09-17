@@ -3,6 +3,7 @@ package com.project.Scrum.APP.config;
 import com.project.Scrum.APP.jwt.AuthTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,18 +35,16 @@ public class WebConfigSecurity {
                                 .requestMatchers("/api/test/all").permitAll()
                                 .requestMatchers("/api/test/user").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/api/test").hasAuthority("ADMIN")
-                                .requestMatchers("/api/tasks").hasAuthority("ADMIN")
-                                .requestMatchers("/api/tasks/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/tasks/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/tasks/").hasAuthority("ADMIN")
-                                .requestMatchers("/api/projects").permitAll()
-                                .requestMatchers("/api/projects/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/projects/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/projects").permitAll()
-                                .requestMatchers("/api/users").permitAll()
+                                .requestMatchers("/api/tasks").hasAnyAuthority("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST,"/api/tasks").hasAuthority("MANAGER")
+                                .requestMatchers(HttpMethod.DELETE,"/api/tasks/**").hasAuthority("MANAGER")
+                                .requestMatchers(HttpMethod.GET,"/api/tasks/{id}").hasAuthority("USER")
+                                .requestMatchers(HttpMethod.PUT,"/api/tasks/**").hasAuthority("USER")
+                                .requestMatchers(HttpMethod.GET,"/api/tasks").hasAnyAuthority("ADMIN", "MANAGER")
+                                .requestMatchers(HttpMethod.GET,"/api/projects/**").hasAnyAuthority("ADMIN", "USER", "MANAGER")
+                                .requestMatchers("/api/projects/**").hasAnyAuthority("ADMIN", "MANAGER")
+                                .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/api/users/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/users/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/users").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
