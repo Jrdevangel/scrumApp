@@ -20,6 +20,25 @@ public class Task {
     @Column(name = "status")
     private boolean status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "user_id")
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Task(int id, String name, String description, boolean status) {
         this.id = id;
         this.name = name;
@@ -69,10 +88,4 @@ public class Task {
     public void setProject(Project project) {
         this.project = project;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "project_id")
-    private Project project;
-
 }
