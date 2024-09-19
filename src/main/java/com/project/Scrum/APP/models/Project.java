@@ -50,6 +50,22 @@ public class Project {
     @JsonManagedReference
     private Set<Task> tasks;
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<User> users;
