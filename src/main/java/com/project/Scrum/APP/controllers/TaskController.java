@@ -42,7 +42,7 @@ public class TaskController {
         return taskService.updateTask(task, id);
     }
 
-     @GetMapping
+    @GetMapping
     public ResponseEntity<List<Task>> getAllTask() {
         try {
             List<Task> Task = taskService.getAllTask();
