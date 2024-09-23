@@ -61,4 +61,4 @@ PUT /api/tasks/{id}: Update a task (Users can only update their own)
 DELETE /api/tasks/{id}: Delete a task (Manager only)
 
 ## 🤝 Contributions
-This project was developed collaboratively by Jrdevangel, FJRJ3D, jmatisam and Krisel1. Contributions are welcome! Please fork this repository, create a new branch for your feature or bugfix, and submit a pull request.
+This project was developed collaboratively by [Jrdevangel](https://github.com/Jrdevangel), [FJRJ3D](https://github.com/FJRJ3D), [jmatisam](https://github.com/jmatisam), and [Krisel1](https://github.com/Krisel1). Contributions are welcome! Please fork this repository, create a new branch for your feature or bugfix, and submit a pull request.
