@@ -1,11 +1,9 @@
 package com.project.Scrum.APP.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +51,6 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    @JsonManagedReference
     private Set<Task> tasks;
 
     public Set<Task> getTasks() {

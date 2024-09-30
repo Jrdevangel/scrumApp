@@ -1,6 +1,5 @@
 package com.project.Scrum.APP.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,15 +19,12 @@ public class Task {
     @Column(name = "status")
     private boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "project_id")
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "user_id")
-
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public User getUser() {

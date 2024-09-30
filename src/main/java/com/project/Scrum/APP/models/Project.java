@@ -1,10 +1,6 @@
 package com.project.Scrum.APP.models;
 
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -43,11 +39,8 @@ public class Project {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "project",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany
+    @JoinColumn(name = "project", nullable = false)
     private Set<Task> tasks;
 
     public Set<User> getUsers() {
@@ -67,6 +60,5 @@ public class Project {
     }
 
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
-    @JsonBackReference
     private Set<User> users;
 }
