@@ -1,26 +1,27 @@
 package com.project.Scrum.APP.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-
 import java.util.Set;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "project")
-
 public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
     public Project(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
+    public Project() {
+    }
+
 
     public int getId() {
         return id;
@@ -38,11 +39,26 @@ public class Project {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "task",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Task> task;
+    @OneToMany
+    @JoinColumn(name = "project", nullable = false)
+    private Set<Task> tasks;
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+    private Set<User> users;
 }
